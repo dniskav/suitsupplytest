@@ -7,7 +7,7 @@ class PostList extends PureComponent {
         return (
             <div>
                 {
-                    list.map((item) => (
+                    list.sort((a, b) => b.date - a.date).map((item) => (
                         <Post key={item.id} title={item.title} data={item.data} date={item.date} />
                     ))
                 }

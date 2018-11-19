@@ -18,6 +18,7 @@ class App extends Component {
     this.setState({ postsList:  posts})
   }
   getPosts = () => this.state.posts;
+  deletePost = (id) => console.log(id); 
   addNewPost = () => {
     this.setState({newPostData:'', newPostTitle: '', postsList: [...this.state.postsList, { id: this.state.postsList.length, title: this.state.newPostTitle, data: this.state.newPostData, date: new Date().getTime() }] });
   };

@@ -1,8 +1,12 @@
 import React, { PureComponent } from 'react';
 import Flexbox from 'flexbox-react';
 
-const PostTitle = ({ title, date }) => (
-    <span className="post-title">{title} {new Date(date).toGMTString()}</span>
+const PostTitle = ({ title, date, deletePost, id }) => (
+    <Flexbox className="post-title" justifyContent="space-between">
+        <span>{title}</span>
+        <span>{new Date(date).toLocaleString()}</span>
+        <button onClick={() => deletePost(id)} >Delete</button>
+    </Flexbox>
 );
 
 const PostContent = ({ data }) => (
@@ -11,10 +15,10 @@ const PostContent = ({ data }) => (
 
 class Post extends PureComponent {
     render() {
-        const { title, data, date } = this.props;
+        const { id, title, data, date, deletePost } = this.props;
         return (
             <Flexbox flexDirection="column">
-                <PostTitle title={title} date={date}/>
+                <PostTitle title={title} date={date} deletePost={deletePost} id={id} />
                 <PostContent data={data} />
             </Flexbox>
         )
