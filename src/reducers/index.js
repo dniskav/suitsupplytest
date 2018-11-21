@@ -1,5 +1,5 @@
 import initialState from './initialState';
-import { NEW_POST, DELETE_POST } from '../actions/actionTypes';
+import { NEW_POST, DELETE_POST, POSTS_LOADED } from '../actions/actionTypes';
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -8,6 +8,8 @@ export default (state = initialState, action) => {
     case NEW_POST:
       state.postsList.push(action.post);
       return state;
+    case POSTS_LOADED:
+      return {...state, postsList: action.postsList};
     default:
       return state;
   }

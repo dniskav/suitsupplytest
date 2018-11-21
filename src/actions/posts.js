@@ -1,4 +1,9 @@
-import { NEW_POST, DELETE_POST } from './actionTypes';
+import { NEW_POST, DELETE_POST, POSTS_LOADED } from './actionTypes';
+
+export const postsLoaded = (postsList) => ({ 
+  type: POSTS_LOADED,
+  postsList,
+}); 
 
 export const newPost = (post) => ({ 
   type: NEW_POST,

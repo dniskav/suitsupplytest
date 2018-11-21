@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Flexbox from 'flexbox-react';
-import { newPost} from '../../actions/posts';
+import { newPost, postsLoaded} from '../../actions/posts';
 import PostList from '../PostList';
 import NewPost from '../NewPost';
 import './App.css';
+import postsListExample from '../../data';
 
 class App extends Component {
   state = {
@@ -14,7 +15,20 @@ class App extends Component {
   componentDidMount = () => {
     this.getPosts();
   }
-  getPosts = () => console.log('loading post from backend!');
+  getPosts = () => {
+    const url = 'API/postsList';
+    fetch(url, {
+      method: 'GET',
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    })
+      .then((data) => {
+        // I dont have a backend or light server to mock the response then I use a json example 
+        // to (postsListExample) emulate it
+        this.props.postsLoaded(postsListExample);
+      });
+  };
   addNewPost = () => {
     this.props.newPost({
       id: this.props.postsList.length,
@@ -55,6 +69,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     newPost: (post) => {
       dispatch(newPost(post));
+    },
+    postsLoaded: (postList) => {
+      dispatch(postsLoaded(postList));
     },
   }
 };
