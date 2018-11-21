@@ -1,30 +1,47 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Flexbox from 'flexbox-react';
+import { newPost, postsLoaded} from '../../actions/posts';
 import PostList from '../PostList';
 import NewPost from '../NewPost';
 import './App.css';
-
-const posts = [
-  { id: 0, title: 'lorem title', data: 'lorem ipsum dolor sit amet blandit plantendo', date: 1542599219926 },
-];
+import postsListExample from '../../data';
 
 class App extends Component {
   state = {
-    postsList : [],
     newPostTitle: '',
     newPostData: '',
   }
   componentDidMount = () => {
-    this.setState({ postsList:  posts})
+    this.getPosts();
   }
-  getPosts = () => this.state.posts;
+  getPosts = () => {
+    const url = 'API/postsList';
+    fetch(url, {
+      method: 'GET',
+      headers:{
+        'Content-Type': 'application/json'
+      }
+    })
+      .then((data) => {
+        // I dont have a backend or light server to mock the response then I use a json example 
+        // to (postsListExample) emulate it
+        this.props.postsLoaded(postsListExample);
+      });
+  };
   addNewPost = () => {
-    this.setState({newPostData:'', newPostTitle: '', postsList: [...this.state.postsList, { id: this.state.postsList.length, title: this.state.newPostTitle, data: this.state.newPostData, date: new Date().getTime() }] });
+    this.props.newPost({
+      id: this.props.postsList.length,
+      title: this.state.newPostTitle,
+      data: this.state.newPostData,
+      date: new Date().getTime(),
+    });
+    this.setState({newPostData:'', newPostTitle: ''});
   };
   newPostTitle = (ev) => this.setState({ newPostTitle: ev.target.value });
   newPostData = (ev) => this.setState({ newPostData: ev.target.value }); 
   render() {
-    const { postsList } = this.state;
+    const { postsList } = this.props;
     return (
       <Flexbox className="App" flexDirection="column">
         <header className="App-header">
@@ -43,4 +60,20 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  counter: state.count,
+  postsList: state.postsList,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    newPost: (post) => {
+      dispatch(newPost(post));
+    },
+    postsLoaded: (postList) => {
+      dispatch(postsLoaded(postList));
+    },
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
