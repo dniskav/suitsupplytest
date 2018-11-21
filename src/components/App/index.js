@@ -1,31 +1,33 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Flexbox from 'flexbox-react';
+import { newPost} from '../../actions/posts';
 import PostList from '../PostList';
 import NewPost from '../NewPost';
 import './App.css';
 
-const posts = [
-  { id: 0, title: 'lorem title', data: 'lorem ipsum dolor sit amet blandit plantendo', date: 1542599219926 },
-];
-
 class App extends Component {
   state = {
-    postsList : [],
     newPostTitle: '',
     newPostData: '',
   }
   componentDidMount = () => {
-    this.setState({ postsList:  posts})
+    this.getPosts();
   }
-  getPosts = () => this.state.posts;
-  deletePost = (id) => console.log(id); 
+  getPosts = () => console.log('loading post from backend!');
   addNewPost = () => {
-    this.setState({newPostData:'', newPostTitle: '', postsList: [...this.state.postsList, { id: this.state.postsList.length, title: this.state.newPostTitle, data: this.state.newPostData, date: new Date().getTime() }] });
+    this.props.newPost({
+      id: this.props.postsList.length,
+      title: this.state.newPostTitle,
+      data: this.state.newPostData,
+      date: new Date().getTime(),
+    });
+    this.setState({newPostData:'', newPostTitle: ''});
   };
   newPostTitle = (ev) => this.setState({ newPostTitle: ev.target.value });
   newPostData = (ev) => this.setState({ newPostData: ev.target.value }); 
   render() {
-    const { postsList } = this.state;
+    const { postsList } = this.props;
     return (
       <Flexbox className="App" flexDirection="column">
         <header className="App-header">
@@ -44,4 +46,17 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  counter: state.count,
+  postsList: state.postsList,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    newPost: (post) => {
+      dispatch(newPost(post));
+    },
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
