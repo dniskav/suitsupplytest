@@ -1,6 +1,10 @@
+/**
+ * App component to wrap all the posts
+ */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Flexbox from 'flexbox-react';
+import PropTypes from 'prop-types';
 import { newPost, postsLoaded} from '../../actions/posts';
 import PostList from '../PostList';
 import NewPost from '../NewPost';
@@ -79,6 +83,10 @@ const mapDispatchToProps = (dispatch) => {
     },
   }
 };
+
+App.propTypes = {
+  postList: PropTypes.array, 
+}
 
 //connect all with redux
 export default connect(mapStateToProps, mapDispatchToProps)(App);

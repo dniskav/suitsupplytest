@@ -1,3 +1,6 @@
+/**
+ * Reducers for Redux
+ */
 import initialState from './initialState';
 import { NEW_POST, DELETE_POST, POSTS_LOADED, POSTS_SEARCH } from '../actions/actionTypes';
 

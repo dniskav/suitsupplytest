@@ -1,3 +1,7 @@
+
+/**
+ * the Redux store confuguration  
+ * */
 import { createStore, compose, applyMiddleware } from 'redux';
 import rootReducer from '../reducers';
 

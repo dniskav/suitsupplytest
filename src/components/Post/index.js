@@ -1,6 +1,10 @@
+/**
+ * Post component, this component manage a single post, shows title bar and readmore link 
+ */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Flexbox from 'flexbox-react';
+import PropTypes from 'prop-types';
 import { deletePost } from '../../actions/posts';
 
 
@@ -11,6 +15,13 @@ const PostTitle = ({ title, date, deletePost, id }) => (
     <button onClick={() => deletePost(id)} >Delete</button>
   </Flexbox>
 );
+
+PostTitle.propTypes = {
+  title: PropTypes.string,
+  date: PropTypes.number,
+  deletePost: PropTypes.func,
+  id: PropTypes.number,
+};
 
 class PostContent extends Component {
   state = {
@@ -43,12 +54,24 @@ class PostContent extends Component {
   }
 };
 
+PostContent.propTypes = {
+  data: PropTypes.any,
+}
+
 const Post = ({ id, title, data, date, deletePost }) => (
   <Flexbox flexDirection="column">
     <PostTitle title={title} date={date} deletePost={deletePost} id={id} />
     <PostContent data={data} />
   </Flexbox>
 );
+
+Post.propTypes = {
+  id: PropTypes.number,
+  title: PropTypes.string,
+  data: PropTypes.any,
+  date: PropTypes.number,
+  deletePost: PropTypes.func,
+}
 
 //to share Redux actions with the component by props
 const mapDispatchToProps = (dispatch) => {
