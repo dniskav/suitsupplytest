@@ -1,4 +1,4 @@
-import { NEW_POST, DELETE_POST, POSTS_LOADED } from './actionTypes';
+import { NEW_POST, DELETE_POST, POSTS_LOADED, POSTS_SEARCH } from './actionTypes';
 
 export const postsLoaded = (postsList) => ({ 
   type: POSTS_LOADED,
@@ -13,4 +13,9 @@ export const newPost = (post) => ({
 export const deletePost = (id) => ({
   type: DELETE_POST,
   id,
+}); 
+
+export const searchPost = (searchString) => ({
+  type: POSTS_SEARCH,
+  searchString,
 }); 

@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import Flexbox from 'flexbox-react';
 import { deletePost } from '../../actions/posts';
@@ -16,18 +16,14 @@ const PostContent = ({ data }) => (
   <span className="post-data">{data}</span>
 );
 
-class Post extends PureComponent {
-  render() {
-    const { id, title, data, date, deletePost } = this.props;
-    return (
-      <Flexbox flexDirection="column">
-        <PostTitle title={title} date={date} deletePost={deletePost} id={id} />
-        <PostContent data={data} />
-      </Flexbox>
-    )
-  }
-}
+const Post = ({ id, title, data, date, deletePost }) => (
+  <Flexbox flexDirection="column">
+    <PostTitle title={title} date={date} deletePost={deletePost} id={id} />
+    <PostContent data={data} />
+  </Flexbox>
+);
 
+//to share Redux actions with the component by props
 const mapDispatchToProps = (dispatch) => {
   return {
     deletePost: (postId) => {
@@ -35,6 +31,6 @@ const mapDispatchToProps = (dispatch) => {
     },
   }
 }
-
+//conect component with redux
 export default connect(null, mapDispatchToProps)(Post);
 
