@@ -6,6 +6,7 @@ import PostList from '../PostList';
 import NewPost from '../NewPost';
 import './App.css';
 import postsListExample from '../../data';
+import SearchBox from '../SearchBox';
 
 class App extends Component {
   state = {
@@ -38,14 +39,15 @@ class App extends Component {
     });
     this.setState({newPostData:'', newPostTitle: ''});
   };
-  newPostTitle = (ev) => this.setState({ newPostTitle: ev.target.value });
-  newPostData = (ev) => this.setState({ newPostData: ev.target.value }); 
+  newPostTitle = (ev) => this.setState({ newPostTitle: ev.target.value });//saves the title in the internal state while writing
+  newPostData = (ev) => this.setState({ newPostData: ev.target.value }); //saves the content in the internal state while writing
   render() {
     const { postsList } = this.props;
     return (
       <Flexbox className="App" flexDirection="column">
         <header className="App-header">
           Post List!
+          <SearchBox />
         </header>
         <PostList list={postsList} />
         <NewPost 
@@ -60,11 +62,13 @@ class App extends Component {
   }
 }
 
+//to share global Redux state with the component by props
 const mapStateToProps = (state) => ({
   counter: state.count,
   postsList: state.postsList,
 });
 
+//to share Redux actions with the component by props
 const mapDispatchToProps = (dispatch) => {
   return {
     newPost: (post) => {
@@ -76,4 +80,5 @@ const mapDispatchToProps = (dispatch) => {
   }
 };
 
+//connect all with redux
 export default connect(mapStateToProps, mapDispatchToProps)(App);
