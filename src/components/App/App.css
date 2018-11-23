@@ -17,8 +17,12 @@
 }
 
 .post-data {
-  background-color: #eeeeee;
-  padding: 24px;
+  overflow: hidden;
+  max-height: 92px;
+}
+
+.post-data-expaned {
+  max-height: 100%;
 }
 
 .App-header {
@@ -42,15 +46,15 @@
 }
 
 .button-base {
-    padding: 8px 16px;
-    font-size: 14px;
-    min-width: 64px;
-    min-height: 36px;
-    border-radius: 4px;
-    text-transform: uppercase;
-    display: inline-flex;
-    width: max-content;
-    margin: 10px auto;
+  padding: 8px 16px;
+  font-size: 14px;
+  min-width: 64px;
+  min-height: 36px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  display: inline-flex;
+  width: max-content;
+  margin: 10px auto;
 }
 
 .search-box {
@@ -60,4 +64,14 @@
   border: 1px solid transparent;
   border-radius: 3px;
   padding: 3px;
+}
+
+.read-more {
+  background-color: #fafafa;
+  margin: 20px;
+}
+
+.read-more-trigger {
+  border: none;
+  cursor: pointer;
 }
