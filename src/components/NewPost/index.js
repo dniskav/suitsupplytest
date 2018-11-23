@@ -1,3 +1,6 @@
+/**
+ * Newpost component
+ */
 import React from 'react'
 import PropTypes from 'prop-types';
 import Flexbox from 'flexbox-react';

@@ -1,3 +1,7 @@
+/**
+ * SearchBox Component
+ * component to search post 
+ */
 import React from 'react';
 import Flexbox from 'flexbox-react';
 import PropTypes from 'prop-types';

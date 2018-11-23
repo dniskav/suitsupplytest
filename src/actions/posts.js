@@ -1,3 +1,6 @@
+/**
+ * action to be dispatched and gain accces to the Redux store
+ */
 import { NEW_POST, DELETE_POST, POSTS_LOADED, POSTS_SEARCH } from './actionTypes';
 
 export const postsLoaded = (postsList) => ({ 
